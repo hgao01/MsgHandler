@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             Message message2 = new Message();
             message2.what = WHAT;
-            MyTask.this.handler2.sendMessage(message2);//???this????Set????timer
+            MyTask.this.handler2.sendMessage(message2);
         }
     }
 
