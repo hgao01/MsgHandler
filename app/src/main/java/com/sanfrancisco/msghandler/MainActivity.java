@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -21,13 +22,22 @@ public class MainActivity extends AppCompatActivity {
     private static final int WHAT = 1;
     private static int count = 0;
     TextView threadID;
-    private Handler handlr = new Handler() {
+    ImageView ivFlow;
 
+    Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+
+            MainActivity.this.threadID.setText("msg.WHAT= " + msg.what + "\n");
+            if (++count == 60) finish();
+
             switch (msg.what) {
-                case WHAT:
-                    MainActivity.this.threadID.setText("msgWHAT:" + count++);
+                case 0:
+                    ivFlow.setImageResource(R.drawable.flow01);
+                    break;
+                case 1:
+                    ivFlow.setImageResource(R.drawable.flow02);
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -54,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void gotoContentView() {
+        ivFlow = (ImageView) findViewById(R.id.ivIdFlow);
+        SonCallsDad sonThread = new SonCallsDad(MainActivity.this);
+        sonThread.start();
+
 
         MainActivity.this.threadID = (TextView) findViewById(R.id.info);//primary thread ID
         Timer timer = new Timer();
@@ -82,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     class MyTask extends TimerTask {
 
         private Handler handler2 = new Handler() {
@@ -106,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // The Handler for the MainActivity
+
     class MyHandler extends Handler {
         public MyHandler(Looper looper) {
             super(looper);
@@ -123,3 +138,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+

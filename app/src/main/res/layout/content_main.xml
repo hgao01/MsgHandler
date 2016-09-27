@@ -20,4 +20,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/ivIdFlow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flow01"
+        android:contentDescription="my Image View Content"
+        android:gravity="center"  />
+
 </RelativeLayout>
